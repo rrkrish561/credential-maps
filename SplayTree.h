@@ -1,25 +1,17 @@
 #include <string>
+#include "Tree.h"
 using namespace std;
 
-class SplayTree 
+class SplayTree: public Tree
 {
   public:
    SplayTree();
    ~SplayTree();
-   void Insert();
-   void Delete(string key);
-   string Search(string key); 
-
+   void Insert(string key, string value);
+   string Search(string value);
+   void Delete(string value);
   private:
-   struct TreeNode
-   {
-     string _key;
-     string _value;
-     TreeNode* _right;
-     TreeNode* _left;
-   };
-    
-   TreeNode* _root;
-
+   
+   void Splay(TreeNode* node);
 };
 

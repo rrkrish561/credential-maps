@@ -1,5 +1,6 @@
 #include <string>
 using namespace std;
+
 class Tree
 {
   protected:

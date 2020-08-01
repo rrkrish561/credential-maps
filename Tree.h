@@ -12,6 +12,7 @@ class Tree
       TreeNode* right;
       TreeNode* left;
     };
+    TreeNode* root;
 
   public:
     virtual void Insert(string key, string value) = 0;

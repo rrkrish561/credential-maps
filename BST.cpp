@@ -1,4 +1,4 @@
-#include "bst.h"
+#include "BST.h"
 
 BST::~BST(){
     if(_root != nullptr)

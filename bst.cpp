@@ -1,9 +1,20 @@
 #include "bst.h"
 
 BST::~BST(){
-    //some traversal that progressively deletes leaves
+    if(_root != nullptr)
+        deleteNodes(_root);
 }
 
+BST::BST(){
+    _size = 0;
+    _root = nullptr;
+}
+
+void BST::deleteNodes(TreeNode* currnode){
+    deleteNodes(currnode->getLeft());
+    deleteNodes(currnode->getRight());
+    delete currnode;
+}
 
 void BST::insertNode(string key, string value){
     TreeNode* newnode = new TreeNode(key,value);
@@ -22,7 +33,8 @@ void BST::insertNode(string key, string value){
                 currnode = nullptr;
                 delete newnode;
             }else{
-                lower = isLowerKeyValue(key, currnode_key);
+                //lower = isLowerKeyValue(key, currnode_key);
+                lower = key < currnode_key;
                 if(lower){
                     prevnode = currnode;
                     currnode = currnode->getLeft();
@@ -38,6 +50,7 @@ void BST::insertNode(string key, string value){
                 prevnode->setLeft(newnode);
             else
                 prevnode->setRight(newnode);
+            //newnode->setParent(prevnode);
             _size++;
         }
 
@@ -53,10 +66,12 @@ BST::TreeNode* BST::getNode(string key){
         while(currnode != nullptr){
             string currnode_key = currnode->getKey();
 
-            if(key.compare(currnode_key) == 0){ //if the keys are equal
+            if(key == currnode_key){
                 return currnode;
             }else{
-                if(isLowerKeyValue(key, currnode_key))
+                //bool lower = isLowerKeyValue(key, currnode_key);
+                bool lower = key < currnode_key;
+                if(lower)
                     currnode = currnode->getLeft();
                 else
                     currnode = currnode->getRight();
@@ -87,7 +102,14 @@ bool BST::isLowerKeyValue(string k1, string k2){
 BST::TreeNode::TreeNode(string key, string value){
     _key = key;
     _value = value;
+    //_parent = nullptr;
+    _left = nullptr;
+    _right = nullptr;
+    _isLeaf = true;
 }
+// void BST::TreeNode::setParent(TreeNode* parent){
+//     _parent = parent;
+// }
 void BST::TreeNode::setLeft(TreeNode* left){
     _left = left;
 }
@@ -107,6 +129,9 @@ string BST::TreeNode::getValue(){
 bool BST::TreeNode::getIsLeaf(){
     return _isLeaf;
 }
+// BST::TreeNode* BST::TreeNode::getParent(){
+//     return _parent;
+// }
 BST::TreeNode* BST::TreeNode::getLeft(){
     return _left;
 }

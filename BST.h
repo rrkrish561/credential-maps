@@ -1,8 +1,9 @@
 #include <string>
 #include <iostream>
+#include "Tree.h"
 using namespace std;
 
-struct BST{
+struct BST: public Tree{
     private:
         struct TreeNode{
             private:
@@ -29,9 +30,12 @@ struct BST{
         unsigned int _size;
         bool isLowerKeyValue(string k1, string k2); //returns true if k1 has a lower value than k2, based on char values
         void deleteNodes(TreeNode* currnode);
+        TreeNode* getNode(string key);
+        void insertNode(string key, string value);
     public:
         ~BST();
         BST();
-        TreeNode* getNode(string key);
-        void insertNode(string key, string value);
+        void Insert(string key, string value);
+        void Delete(string key);
+        string Search(string key);
 };

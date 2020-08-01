@@ -1,8 +1,7 @@
 #include "BST.h"
 
 BST::~BST(){
-    if(_root != nullptr)
-        deleteNodes(_root);
+    deleteNodes(_root);
 }
 
 BST::BST(){
@@ -11,10 +10,23 @@ BST::BST(){
 }
 
 void BST::deleteNodes(TreeNode* currnode){
-    deleteNodes(currnode->getLeft());
-    deleteNodes(currnode->getRight());
-    delete currnode;
+    if(currnode!=nullptr){
+        deleteNodes(currnode->getLeft());
+        deleteNodes(currnode->getRight());
+        delete currnode;
+    }
 }
+
+void BST::Insert(string key, string value){
+    insertNode(key, value);
+}
+void BST::Delete(string key){
+    //none
+}
+string BST::Search(string key){
+    return getNode(key)->getValue();
+}
+
 
 void BST::insertNode(string key, string value){
     TreeNode* newnode = new TreeNode(key,value);

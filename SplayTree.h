@@ -12,6 +12,8 @@ class SplayTree: public Tree
    void Delete(string value);
   private:
    void insertHelper(TreeNode* tempRoot, TreeNode* temp);
-   void Splay(TreeNode* node);
+   TreeNode* Splay(TreeNode* tempRoot, TreeNode* node);
+   TreeNode* rightRotate(TreeNode* tempRoot);
+   TreeNode* leftRotate(TreeNode* tempRoot);
 };
 

@@ -11,6 +11,7 @@ class Tree
       string value;
       TreeNode* right;
       TreeNode* left;
+      TreeNode* parent;
     };
     TreeNode* root;
 

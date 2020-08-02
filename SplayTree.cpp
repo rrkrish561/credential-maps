@@ -14,7 +14,6 @@ void SplayTree::Insert(string key, string value)
   temp->value = value;
   temp->right = nullptr;
   temp->left = nullptr;
-  temp->parent = nullptr;
 
   if(root == nullptr)
   {
@@ -25,7 +24,7 @@ void SplayTree::Insert(string key, string value)
     insertHelper(root, temp);
   }
 
-  Splay(temp);
+  root = Splay(root, temp);
 }
 
 void SplayTree::insertHelper(TreeNode* tempRoot, TreeNode* temp)
@@ -35,7 +34,6 @@ void SplayTree::insertHelper(TreeNode* tempRoot, TreeNode* temp)
     if(tempRoot->left == nullptr)
     {
       tempRoot->left = temp;
-      temp->parent = tempRoot;
     }
     else
       insertHelper(tempRoot->left, temp);
@@ -45,14 +43,59 @@ void SplayTree::insertHelper(TreeNode* tempRoot, TreeNode* temp)
     if(tempRoot->right == nullptr)
     {  
       tempRoot->right = temp;
-      temp->parent = tempRoot;
     }
     else
       insertHelper(tempRoot->right, temp);
   }
 }
 
-void SplayTree::Splay(TreeNode* node)
+Tree::TreeNode* SplayTree::Splay(Tree::TreeNode* tempRoot, Tree::TreeNode* node)
 {
-  if()
+  if(node == tempRoot || tempRoot == nullptr)
+  {
+    return tempRoot;
+  }
+
+  if(node->value < tempRoot->value)
+  {
+    if(tempRoot->left == nullptr)
+      return tempRoot;
+
+    if(node->value < tempRoot->left->value)
+    {
+      tempRoot->left->left = Splay(tempRoot->left->left, node);
+      tempRoot->left = rightRotate(tempRoot->left);
+    }
+    else if(node->value > tempRoot->left->value)
+    {
+      tempRoot->left->right = Splay(tempRoot->left->right, node);
+      tempRoot->left = leftRotate(tempRoot->left);
+    }
+
+    tempRoot = rightRotate(tempRoot);
+    return tempRoot;
+  }
+  else
+  {
+    if(tempRoot->right == nullptr)
+      return tempRoot;
+
+    if(node->value > tempRoot->right->value)
+    {
+      tempRoot->right->right = Splay(tempRoot->right->right, node);
+      tempRoot->right = leftRotate(tempRoot->right);
+    }
+    else if(node->value < tempRoot->right->value)
+    {
+      tempRoot->right->left = Splay(tempRoot->right->left, node);
+      tempRoot->right = rightRotate(tempRoot->right);
+    }
+    tempRoot = leftRotate(tempRoot);
+    return tempRoot;
+  }
+}
+
+Tree::TreeNode* SplayTree::rightRotate(Tree::TreeNode* tempRoot)
+{
+  return nullptr;
 }

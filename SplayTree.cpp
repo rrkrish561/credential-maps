@@ -14,6 +14,7 @@ void SplayTree::Insert(string key, string value)
   temp->value = value;
   temp->right = nullptr;
   temp->left = nullptr;
+  temp->parent = nullptr;
 
   if(root == nullptr)
   {
@@ -32,20 +33,26 @@ void SplayTree::insertHelper(TreeNode* tempRoot, TreeNode* temp)
   if(temp->value < tempRoot->value)
   {
     if(tempRoot->left == nullptr)
+    {
       tempRoot->left = temp;
+      temp->parent = tempRoot;
+    }
     else
       insertHelper(tempRoot->left, temp);
   }
   else if(temp->value > tempRoot->value)
   {
     if(tempRoot->right == nullptr)
+    {  
       tempRoot->right = temp;
+      temp->parent = tempRoot;
+    }
     else
       insertHelper(tempRoot->right, temp);
   }
-
 }
+
 void SplayTree::Splay(TreeNode* node)
 {
-  
+  if()
 }

@@ -29,7 +29,7 @@ void SplayTree::Insert(string key, string value)
 
 void SplayTree::insertHelper(TreeNode* tempRoot, TreeNode* temp)
 {
-  if(temp->value < tempRoot->value)
+  if(temp->key < tempRoot->key)
   {
     if(tempRoot->left == nullptr)
     {
@@ -38,7 +38,7 @@ void SplayTree::insertHelper(TreeNode* tempRoot, TreeNode* temp)
     else
       insertHelper(tempRoot->left, temp);
   }
-  else if(temp->value > tempRoot->value)
+  else if(temp->key > tempRoot->key)
   {
     if(tempRoot->right == nullptr)
     {  
@@ -49,6 +49,32 @@ void SplayTree::insertHelper(TreeNode* tempRoot, TreeNode* temp)
   }
 }
 
+string SplayTree::Search(string key)
+{
+  return searchHelper(root, key); //hi
+}
+
+string SplayTree::searchHelper(Tree::TreeNode* tempRoot, string key)
+{
+  if(tempRoot == nullptr)
+  {
+    return std::string();
+  }
+  else if(key == tempRoot->key)
+  {
+    root = Splay(root, tempRoot);
+    return tempRoot->value;
+  }
+  else if(key < tempRoot->key)
+  {
+    return searchHelper(tempRoot->left, key);
+  }
+  else
+  {
+    return searchHelper(tempRoot->right, key);
+  }
+}
+
 Tree::TreeNode* SplayTree::Splay(Tree::TreeNode* tempRoot, Tree::TreeNode* node)
 {
   if(node == tempRoot || tempRoot == nullptr)
@@ -56,17 +82,17 @@ Tree::TreeNode* SplayTree::Splay(Tree::TreeNode* tempRoot, Tree::TreeNode* node)
     return tempRoot;
   }
 
-  if(node->value < tempRoot->value)
+  if(node->key < tempRoot->key)
   {
     if(tempRoot->left == nullptr)
       return tempRoot;
 
-    if(node->value < tempRoot->left->value)
+    if(node->key < tempRoot->left->key)
     {
       tempRoot->left->left = Splay(tempRoot->left->left, node);
       tempRoot->left = rightRotate(tempRoot->left);
     }
-    else if(node->value > tempRoot->left->value)
+    else if(node->key > tempRoot->left->key)
     {
       tempRoot->left->right = Splay(tempRoot->left->right, node);
       tempRoot->left = leftRotate(tempRoot->left);
@@ -80,12 +106,12 @@ Tree::TreeNode* SplayTree::Splay(Tree::TreeNode* tempRoot, Tree::TreeNode* node)
     if(tempRoot->right == nullptr)
       return tempRoot;
 
-    if(node->value > tempRoot->right->value)
+    if(node->key > tempRoot->right->key)
     {
       tempRoot->right->right = Splay(tempRoot->right->right, node);
       tempRoot->right = leftRotate(tempRoot->right);
     }
-    else if(node->value < tempRoot->right->value)
+    else if(node->key < tempRoot->right->key)
     {
       tempRoot->right->left = Splay(tempRoot->right->left, node);
       tempRoot->right = rightRotate(tempRoot->right);

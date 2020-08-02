@@ -11,7 +11,7 @@ class SplayTree: public Tree
    string Search(string value);
    void Delete(string value);
   private:
-   
+   void insertHelper(TreeNode* tempRoot, TreeNode* temp);
    void Splay(TreeNode* node);
 };
 

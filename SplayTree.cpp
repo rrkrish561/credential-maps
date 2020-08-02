@@ -97,5 +97,18 @@ Tree::TreeNode* SplayTree::Splay(Tree::TreeNode* tempRoot, Tree::TreeNode* node)
 
 Tree::TreeNode* SplayTree::rightRotate(Tree::TreeNode* tempRoot)
 {
-  return nullptr;
+  TreeNode* tempLeft = tempRoot->left;
+  tempRoot->left = tempLeft->right;
+  tempLeft->right = tempRoot;
+
+  return tempLeft;
+}
+
+Tree::TreeNode* SplayTree::leftRotate(Tree::TreeNode* tempRoot)
+{
+  TreeNode* tempRight = tempRoot->right;
+  tempRoot->right = tempRight->left;
+  tempRight->left = tempRoot;
+
+  return tempRight;
 }

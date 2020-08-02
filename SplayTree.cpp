@@ -51,7 +51,7 @@ void SplayTree::insertHelper(TreeNode* tempRoot, TreeNode* temp)
 
 string SplayTree::Search(string key)
 {
-  return searchHelper(root, key); //hi
+  return searchHelper(root, key);
 }
 
 string SplayTree::searchHelper(Tree::TreeNode* tempRoot, string key)

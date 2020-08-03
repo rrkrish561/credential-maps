@@ -5,11 +5,7 @@ using namespace std;
 SplayTree::SplayTree() { root = nullptr; }
 
 void SplayTree::Insert(string key, string value) {
-  TreeNode *temp = new TreeNode();
-  temp->key = key;
-  temp->value = value;
-  temp->right = nullptr;
-  temp->left = nullptr;
+  TreeNode *temp = new TreeNode(key, value);
 
   if (root == nullptr) {
     root = temp;

@@ -20,7 +20,7 @@ void SplayTree::Insert(string key, string value) {
   root = Splay(root, temp);
 }
 
-void SplayTree::insertHelper(TreeNode *tempRoot, TreeNode *temp) {
+void SplayTree::insertHelper(Tree::TreeNode *tempRoot, Tree::TreeNode *temp) {
   if (temp->key < tempRoot->key) {
     if (tempRoot->left == nullptr) {
       tempRoot->left = temp;
@@ -36,7 +36,7 @@ void SplayTree::insertHelper(TreeNode *tempRoot, TreeNode *temp) {
 
 string SplayTree::Search(string key) { return searchHelper(root, key); }
 
-string SplayTree::searchHelper(TreeNode *tempRoot, string key) {
+string SplayTree::searchHelper(Tree::TreeNode *tempRoot, string key) {
   if (tempRoot == nullptr) {
     return std::string();
   } else if (key == tempRoot->key) {
@@ -49,7 +49,7 @@ string SplayTree::searchHelper(TreeNode *tempRoot, string key) {
   }
 }
 
-SplayTree::TreeNode *SplayTree::Splay(TreeNode *tempRoot,
+Tree::TreeNode* SplayTree::Splay(Tree::TreeNode *tempRoot,
                                       TreeNode *node) {
   if (node == tempRoot || tempRoot == nullptr) {
     return tempRoot;
@@ -85,7 +85,7 @@ SplayTree::TreeNode *SplayTree::Splay(TreeNode *tempRoot,
   }
 }
 
-SplayTree::TreeNode *SplayTree::rightRotate(TreeNode *tempRoot) {
+Tree::TreeNode* SplayTree::rightRotate(Tree::TreeNode *tempRoot) {
   TreeNode *tempLeft = tempRoot->left;
   tempRoot->left = tempLeft->right;
   tempLeft->right = tempRoot;
@@ -93,7 +93,7 @@ SplayTree::TreeNode *SplayTree::rightRotate(TreeNode *tempRoot) {
   return tempLeft;
 }
 
-SplayTree::TreeNode *SplayTree::leftRotate(TreeNode *tempRoot) {
+Tree::TreeNode* SplayTree::leftRotate(Tree::TreeNode *tempRoot) {
   TreeNode *tempRight = tempRoot->right;
   tempRoot->right = tempRight->left;
   tempRight->left = tempRoot;

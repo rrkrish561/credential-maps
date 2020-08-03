@@ -1,21 +1,22 @@
+#pragma once
+
 #include <string>
-using namespace std;
 
 class Tree {
   public:
     ~Tree();
-    virtual void Insert(string key, string value) = 0;
-    virtual string Search(string key) = 0;
+    virtual void Insert(std::string _key, std::string _value) = 0;
+    virtual std::string Search(std::string _key) = 0;
     int getSize();
     
   protected:
-    struct TreeNode{
-        string key;
-        string value;
+    struct TreeNode {
+        std::string key;
+        std::string value;
         TreeNode *right;
         TreeNode *left;
 
-        TreeNode(string _key, string _value) {
+        TreeNode(std::string _key, std::string _value) {
           key = _key;
           value = _value;
           right = left = nullptr;
@@ -27,19 +28,3 @@ class Tree {
   private:
     void deleteTree(TreeNode* tempRoot);
 };
-
-Tree::~Tree() {
-  deleteTree(root);
-}
-
-void Tree::deleteTree(TreeNode* tempRoot) {
-  if(tempRoot != nullptr) {
-    deleteTree(tempRoot->left);
-    deleteTree(tempRoot->right);
-    delete tempRoot;
-  }
-}
-
-int Tree::getSize() {
-  return size;
-}

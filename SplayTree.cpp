@@ -2,13 +2,14 @@
 
 using namespace std;
 
-SplayTree::SplayTree() { root = nullptr; }
+SplayTree::SplayTree() { root = nullptr; size = 0;}
 
 void SplayTree::Insert(string key, string value) {
   TreeNode *temp = new TreeNode(key, value);
 
   if (root == nullptr) {
     root = temp;
+    size++;
   } else {
     insertHelper(root, temp);
   }
@@ -20,13 +21,17 @@ void SplayTree::insertHelper(Tree::TreeNode *tempRoot, Tree::TreeNode *temp) {
   if (temp->key < tempRoot->key) {
     if (tempRoot->left == nullptr) {
       tempRoot->left = temp;
+      size++;
     } else
       insertHelper(tempRoot->left, temp);
   } else if (temp->key > tempRoot->key) {
     if (tempRoot->right == nullptr) {
       tempRoot->right = temp;
+      size++;
     } else
       insertHelper(tempRoot->right, temp);
+  } else {
+    delete temp;
   }
 }
 

@@ -10,6 +10,13 @@ public:
   string Search(string key);
 
 private:
+  struct TreeNode{
+    string key;
+    string value;
+    TreeNode *right;
+    TreeNode *left;
+  };
+  TreeNode *root;
   void insertHelper(TreeNode *tempRoot, TreeNode *temp);
   string searchHelper(TreeNode *tempRoot, string key);
   TreeNode *Splay(TreeNode *tempRoot, TreeNode *node);

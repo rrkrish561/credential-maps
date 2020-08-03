@@ -5,7 +5,6 @@ using namespace std;
 class SplayTree : public Tree {
   public:
     SplayTree();
-    ~SplayTree();
     void Insert(string key, string value);
     string Search(string key);
 

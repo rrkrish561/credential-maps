@@ -6,7 +6,9 @@
 #include "CredentialsInserter.h"
 #include <chrono>
 #include "Tree.h"
-#include "SplayTree.h"
+#include "Splaytree.h"
+#include "hashlibpp.h"
+
 using namespace std::chrono;
 
 int main()
@@ -16,11 +18,10 @@ int main()
     int treeSpecifier;
     string userName;
     string passWord;
+    hashwrapper *passWrapper = new md5wrapper();
     string hashedPass;
-    BST a;
-    SplayTree b;
-    BST * bstPointer;
-    SplayTree * splayPointer;
+    BST * bstPointer = new BST();
+    SplayTree * splayPointer = new SplayTree();
     CredentialsInserter bstInserter = CredentialsInserter(bstPointer);
     CredentialsInserter splayInserter = CredentialsInserter(splayPointer);
     while(menuSelect!=4)
@@ -36,13 +37,13 @@ int main()
                 cout << "\n";
                 cout << "Please enter your password: ";
                 cin >> passWord;
-                hashedPass = md5(passWord);
+                hashedPass = passWrapper->getHashFromString(passWord);
                 cout << "Please specify which tree to search in:\n 1. BST\n 2. Splay Tree" << endl;
                 cin >> treeSpecifier;
                 if(treeSpecifier==1)
                 {
                     auto t1 = Clock::now();
-                    if (a.search(userName).equals(hashedPass))
+                    if (a.Search(userName)==hashedPass)
                     {
                         auto t2 = Clock::now();
                         cout << "Account found in BST in " << duration_cast<nanoseconds>(t2 - t1).count() << " nanoseconds." << endl;
@@ -55,7 +56,7 @@ int main()
                 if(treeSpecifier==2)
                 {
                     auto t1 = Clock::now();
-                    if (splayInserter.search(userName).equals(hashedPass))
+                    if (a.Search(userName)==hashedPass)
                     {
                         auto t2 = Clock::now();
                         cout << "Account found in Splay Tree in " << duration_cast<nanoseconds>(t2 - t1).count() << " nanoseconds." << endl;
@@ -74,7 +75,7 @@ int main()
                 cout << "\n";
                 cout << "Please enter a password: ";
                 cin >> passWord;
-                hashedPass = md5(passWord);
+                hashedPass = passWrapper->getHashFromString(passWord);
                 cout << "Inserting account into BST and Splay Tree..." << endl;
                 a.Insert(userName, hashedPass);
                 b.Insert(userName, hashedPass);
@@ -100,21 +101,27 @@ int main()
                 auto t1 = Clock::now();
                 for(int i = 0; i < accounts.size(); i++)
                 {
-                    a.search(accounts[i].first);
+                    a.Search(accounts[i].first);
                 }
                 auto t2 = Clock::now();
-
-                cout << "Average login time in BST is " << duration_cast<nanoseconds>(t2 - t1).count() << " nanoseconds." << endl;
+                int time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+                long int averageTime = time / accounts.size();
+                cout << "Average login time in BST is " << averageTime << " nanoseconds." << endl;
 
                 t1 = Clock::now();
                 for(int i = 0; i < accounts.size(); i++)
                 {
-                    b.search(accounts[i].first);
+                    b.Search(accounts[i].first);
                 }
                 t2 = Clock::now();
-                cout << "Account login time in Splay Tree is " << duration_cast<nanoseconds>(t2 - t1).count() << " nanoseconds." << endl;
+                time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+                averageTime = time / accounts.size();
+                cout << "Account login time in Splay Tree is " << averageTime << " nanoseconds." << endl;
             }
         }
     }
+    delete bstPointer;
+    delete splayPointer;
+    delete passWrapper;
     return 0;
 }

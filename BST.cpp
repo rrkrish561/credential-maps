@@ -1,9 +1,5 @@
 #include "BST.h"
 
-BST::~BST(){
-  //needs destructor, doesnt work yet w/ tree.h destructor
-}
-
 BST::BST() {
   size = 0;
   root = nullptr;

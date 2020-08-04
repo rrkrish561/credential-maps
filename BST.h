@@ -8,7 +8,6 @@ private:
   TreeNode* getNode(string _key);
   void insertNode(string _key, string _value);
 public:
-  ~BST();
   BST();
   void Insert(string _key, string _value);
   string Search(string _key);

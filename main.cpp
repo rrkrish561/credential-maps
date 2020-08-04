@@ -6,7 +6,7 @@
 #include "CredentialsInserter.h"
 #include <chrono>
 #include "Tree.h"
-#include "Splaytree.h"
+#include "SplayTree.h"
 using namespace std::chrono;
 
 int main()

@@ -7,6 +7,9 @@ class SplayTree : public Tree {
     SplayTree();
     void Insert(string key, string value);
     string Search(string key);
+    void printHead() {
+      std::cout << root->key << " " << root->value << endl;
+    }
 
   private:
     void insertHelper(TreeNode *tempRoot, TreeNode *temp);

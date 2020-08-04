@@ -2,3 +2,5 @@
 *.s
 *.h.gch
 *.o
+*.obj
+*.pdb

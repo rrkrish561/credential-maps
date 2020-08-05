@@ -1,12 +1,11 @@
 #include "BST.h"
+#include "SplayTree.h"
+#include "CredentialsInserter.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "CredentialsInserter.h"
 #include <chrono>
-#include "Tree.h"
-#include "SplayTree.h"
 #include "hashlibpp.h"
 
 using namespace std::chrono;
@@ -14,7 +13,7 @@ using namespace std::chrono;
 int main()
 {
     typedef high_resolution_clock Clock;
-    int menuSelect;
+    int menuSelect = 0;
     int treeSpecifier;
     string userName;
     string passWord;
@@ -57,7 +56,7 @@ int main()
                         cout << "Account not found!" << endl;
                     }
                 }
-                if(treeSpecifier==2)
+                else if(treeSpecifier==2)
                 {
                     auto t1 = Clock::now();
                     if (splayInserter.verifyCreds(userName, passWord))
@@ -125,6 +124,7 @@ int main()
                 time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
                 averageTime = time / (double) accounts.size();
                 cout << "Average login time in Splay Tree is " << averageTime << " nanoseconds." << endl;
+                break;
             }
         }
     }

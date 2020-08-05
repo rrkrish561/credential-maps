@@ -6,7 +6,7 @@
 #include "CredentialsInserter.h"
 #include <chrono>
 #include "Tree.h"
-#include "Splaytree.h"
+#include "SplayTree.h"
 #include "hashlibpp.h"
 
 using namespace std::chrono;
@@ -24,6 +24,13 @@ int main()
     SplayTree * splayPointer = new SplayTree();
     CredentialsInserter bstInserter = CredentialsInserter(bstPointer);
     CredentialsInserter splayInserter = CredentialsInserter(splayPointer);
+
+    string insertCredTextFile = "";
+    string loginSimulatorFile = "";
+
+
+
+
     while(menuSelect!=4)
     {
         cout << "-----Main Menu-----\n 1. Login\n 2. Register\n 3. Test Logins" << endl;
@@ -43,7 +50,7 @@ int main()
                 if(treeSpecifier==1)
                 {
                     auto t1 = Clock::now();
-                    if (a.Search(userName)==hashedPass)
+                    if (bstInserter.verifyCreds(userName, passWord))
                     {
                         auto t2 = Clock::now();
                         cout << "Account found in BST in " << duration_cast<nanoseconds>(t2 - t1).count() << " nanoseconds." << endl;
@@ -56,7 +63,7 @@ int main()
                 if(treeSpecifier==2)
                 {
                     auto t1 = Clock::now();
-                    if (a.Search(userName)==hashedPass)
+                    if (splayInserter.verifyCreds(userName, passWord))
                     {
                         auto t2 = Clock::now();
                         cout << "Account found in Splay Tree in " << duration_cast<nanoseconds>(t2 - t1).count() << " nanoseconds." << endl;
@@ -75,53 +82,59 @@ int main()
                 cout << "\n";
                 cout << "Please enter a password: ";
                 cin >> passWord;
-                hashedPass = passWrapper->getHashFromString(passWord);
+                
                 cout << "Inserting account into BST and Splay Tree..." << endl;
-                a.Insert(userName, hashedPass);
-                b.Insert(userName, hashedPass);
+
+                bstInserter.insertCreds(userName, passWord);
+                splayInserter.insertCreds(userName, passWord);
                 break;
             }
             case 3:
             {
+                // Insert and time credentials into both trees
+
+
                 ifstream fileReader;
                 string userN;
                 string passW;
                 vector<pair<string,string>> accounts;
-                int count = 0;
-                fileReader.open("FILE NAME HERE", ios::binary);
+
+                fileReader.open(loginSimulatorFile, ios::binary);
                 string dataHolder;
                 while(getline(fileReader, dataHolder))
                 {
                     stringstream ss(dataHolder);
                     ss >> userN >> passW;
                     pair<string, string> account = make_pair(userN, passW);
-                    accounts[count] = account;
-                    count++;
+                    accounts.push_back(account);
+ 
                 }
                 auto t1 = Clock::now();
-                for(int i = 0; i < accounts.size(); i++)
+                for(unsigned int i = 0; i < accounts.size(); i++)
                 {
-                    a.Search(accounts[i].first);
+                    bstInserter.verifyCreds(accounts[i].first, accounts[i].second);
                 }
                 auto t2 = Clock::now();
                 int time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-                long int averageTime = time / accounts.size();
+                double averageTime = time / (double) accounts.size();
                 cout << "Average login time in BST is " << averageTime << " nanoseconds." << endl;
 
                 t1 = Clock::now();
-                for(int i = 0; i < accounts.size(); i++)
+                for(unsigned int i = 0; i < accounts.size(); i++)
                 {
-                    b.Search(accounts[i].first);
+                    splayInserter.verifyCreds(accounts[i].first, accounts[i].second);
                 }
                 t2 = Clock::now();
                 time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-                averageTime = time / accounts.size();
-                cout << "Account login time in Splay Tree is " << averageTime << " nanoseconds." << endl;
+                averageTime = time / (double) accounts.size();
+                cout << "Average login time in Splay Tree is " << averageTime << " nanoseconds." << endl;
             }
         }
     }
+
     delete bstPointer;
     delete splayPointer;
     delete passWrapper;
+
     return 0;
 }

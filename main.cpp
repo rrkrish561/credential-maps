@@ -14,10 +14,8 @@ using namespace std::chrono;
 int main()
 {
     typedef high_resolution_clock Clock;
-    int menuSelect;
+    int menuSelect = 0;
     int treeSpecifier;
-    string userName;
-    string passWord;
     hashwrapper *passWrapper = new md5wrapper();
     string hashedPass;
     BST * bstPointer = new BST();
@@ -25,11 +23,13 @@ int main()
     CredentialsInserter bstInserter = CredentialsInserter(bstPointer);
     CredentialsInserter splayInserter = CredentialsInserter(splayPointer);
 
-    string insertCredTextFile = "";
-    string loginSimulatorFile = "";
+    string insertCredTextFile = "credentials_data.zip";
+    string loginSimulatorFile = "variedlogins_input_1to3.7z";
 
     while(menuSelect!=4)
     {
+        string userName;
+        string passWord;
         cout << "-----Main Menu-----\n 1. Login\n 2. Register\n 3. Test Logins" << endl;
         cin >> menuSelect;
         switch(menuSelect)
@@ -57,17 +57,20 @@ int main()
                         cout << "Account not found!" << endl;
                     }
                 }
-                if(treeSpecifier==2)
+                else
                 {
-                    auto t1 = Clock::now();
-                    if (splayInserter.verifyCreds(userName, passWord))
+                    if(treeSpecifier==2)
                     {
-                        auto t2 = Clock::now();
-                        cout << "Account found in Splay Tree in " << duration_cast<nanoseconds>(t2 - t1).count() << " nanoseconds." << endl;
-                    }
-                    else
-                    {
-                        cout << "Account not found!" << endl;
+                        auto t1 = Clock::now();
+                        if (splayInserter.verifyCreds(userName, passWord))
+                        {
+                            auto t2 = Clock::now();
+                            cout << "Account found in Splay Tree in " << duration_cast<nanoseconds>(t2 - t1).count() << " nanoseconds." << endl;
+                        }
+                        else
+                        {
+                            cout << "Invalid credentials!" << endl;
+                        }
                     }
                 }
                 break;
@@ -79,7 +82,7 @@ int main()
                 cout << "\n";
                 cout << "Please enter a password: ";
                 cin >> passWord;
-                
+
                 cout << "Inserting account into BST and Splay Tree..." << endl;
 
                 bstInserter.insertCreds(userName, passWord);
@@ -90,29 +93,55 @@ int main()
             {
                 // Insert and time credentials into both trees
 
-
                 ifstream fileReader;
                 string userN;
                 string passW;
-                vector<pair<string,string>> accounts;
+                string dataHolder;
+                fileReader.open(insertCredTextFile, ios::binary);
+                auto t1 = Clock::now();
+                while(getline(fileReader, dataHolder))
+                {
+                    stringstream ss(dataHolder);
+                    ss >> userN >> passW;
+                    bstInserter.insertCreds(userN, passW);
+                }
+                auto t2 = Clock::now();
+                fileReader.close();
+                int time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+                cout << "Time to generate BST: " << time << endl;
+
+                fileReader.open(insertCredTextFile, ios::binary);
+                t1 = Clock::now();
+                while(getline(fileReader, dataHolder))
+                {
+                    stringstream ss(dataHolder);
+                    ss >> userN >> passW;
+                    splayInserter.insertCreds(userN, passW);
+                }
+                t2 = Clock::now();
+                fileReader.close();
+                time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+                cout << "Time to generate Splay Tree: " << time << endl;
 
                 fileReader.open(loginSimulatorFile, ios::binary);
-                string dataHolder;
+                vector<pair<string,string>> accounts;
                 while(getline(fileReader, dataHolder))
                 {
                     stringstream ss(dataHolder);
                     ss >> userN >> passW;
                     pair<string, string> account = make_pair(userN, passW);
                     accounts.push_back(account);
- 
+
                 }
-                auto t1 = Clock::now();
+                fileReader.close();
+
+                t1 = Clock::now();
                 for(unsigned int i = 0; i < accounts.size(); i++)
                 {
                     bstInserter.verifyCreds(accounts[i].first, accounts[i].second);
                 }
-                auto t2 = Clock::now();
-                int time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+                t2 = Clock::now();
+                time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
                 double averageTime = time / (double) accounts.size();
                 cout << "Average login time in BST is " << averageTime << " nanoseconds." << endl;
 
@@ -125,6 +154,7 @@ int main()
                 time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
                 averageTime = time / (double) accounts.size();
                 cout << "Average login time in Splay Tree is " << averageTime << " nanoseconds." << endl;
+                break;
             }
         }
     }

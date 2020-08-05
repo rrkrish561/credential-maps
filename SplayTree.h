@@ -9,7 +9,7 @@ class SplayTree : public Tree {
     string Search(string key);
 
   private:
-    void insertHelper(TreeNode *tempRoot, TreeNode *temp);
+    bool insertHelper(TreeNode *tempRoot, TreeNode *temp);
     string searchHelper(TreeNode *tempRoot, string key);
     TreeNode *Splay(TreeNode *tempRoot, TreeNode *node);
     TreeNode *rightRotate(TreeNode *tempRoot);

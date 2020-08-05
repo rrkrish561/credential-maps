@@ -1,24 +1,29 @@
 #include "SplayTree.h"
 
+//remove this
+#include <iostream>
+
 using namespace std;
 
 SplayTree::SplayTree() { root = nullptr; size = 0;}
 
 void SplayTree::Insert(string key, string value) {
   TreeNode *temp = new TreeNode(key, value);
-
+  bool insertSuccess;
   if (root == nullptr) {
     root = temp;
     size++;
   } else {
-    insertHelper(root, temp);
+    insertSuccess = insertHelper(root, temp);
   }
 
-  root = Splay(root, temp);
+  if(insertSuccess) {
+    root = Splay(root, temp);
+  }
 }
 
-void SplayTree::insertHelper(Tree::TreeNode *tempRoot, Tree::TreeNode *temp) {
-  bool alreadyExists = false;
+bool SplayTree::insertHelper(Tree::TreeNode *tempRoot, Tree::TreeNode *temp) {
+  bool insertSuccess = true;
 
   if (temp->key < tempRoot->key) {
     if (tempRoot->left == nullptr) {
@@ -30,12 +35,12 @@ void SplayTree::insertHelper(Tree::TreeNode *tempRoot, Tree::TreeNode *temp) {
     if (tempRoot->right == nullptr) {
       tempRoot->right = temp;
       size++;
-    } else
-       alreadyExists = true;
+    } else {
+      insertSuccess = false;
+      delete temp;
+    }
   } 
-
-  if (alreadyExists == true)
-    delete temp;
+  return insertSuccess;
 }
 
 string SplayTree::Search(string key) { return searchHelper(root, key); }

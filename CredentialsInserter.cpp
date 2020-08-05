@@ -3,6 +3,7 @@
 CredentialsInserter::CredentialsInserter(Tree* tree)
 {
     _tree = tree;
+    passWrapper = new md5wrapper();
 }
 
 void CredentialsInserter::insertCreds (string user, string pass)

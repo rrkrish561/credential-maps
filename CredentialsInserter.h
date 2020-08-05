@@ -8,8 +8,11 @@ class CredentialsInserter
         {
         private:
             Tree* _tree;
-            hashwrapper *passWrapper = new md5wrapper();
+            hashwrapper *passWrapper;
         public:
+            CredentialsInserter() {
+                passWrapper = new md5wrapper();
+            }
             ~CredentialsInserter() {
                 delete passWrapper;
             }

@@ -7,7 +7,6 @@
 #include <chrono>
 #include "Tree.h"
 #include "SplayTree.h"
-#include "hashlibpp.h"
 
 using namespace std;
 
@@ -21,8 +20,8 @@ int main()
     CredentialsInserter bstInserter = CredentialsInserter(bstPointer);
     CredentialsInserter splayInserter = CredentialsInserter(splayPointer);
 
-    string insertCredTextFile = "usernameData_100k.txt";
-    string loginSimulatorFile = "variedlogins_100k_1to3.txt";
+    string insertCredTextFile = "usernameData_1000.txt";
+    string loginSimulatorFile = "variedlogins_1000_1to3.txt";
     string inputSizeExtension = "_1000";
 
     while(menuSelect!=4)

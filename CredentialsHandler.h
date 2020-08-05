@@ -4,19 +4,16 @@
 
 using namespace std;
 
-class CredentialsInserter
+class CredentialsHandler
         {
         private:
             Tree* _tree;
             hashwrapper *passWrapper;
         public:
-            CredentialsInserter() {
-                passWrapper = new md5wrapper();
-            }
-            ~CredentialsInserter() {
+            ~CredentialsHandler() {
                 delete passWrapper;
             }
-            CredentialsInserter(Tree* tree);
+            CredentialsHandler(Tree* tree);
             void insertCreds (string user, string pass);
             bool verifyCreds (string user, string pass);
         };

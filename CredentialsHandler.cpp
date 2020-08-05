@@ -1,18 +1,18 @@
-#include "CredentialsInserter.h"
+#include "CredentialsHandler.h"
 
-CredentialsInserter::CredentialsInserter(Tree* tree)
+CredentialsHandler::CredentialsHandler(Tree* tree)
 {
     _tree = tree;
     passWrapper = new md5wrapper();
 }
 
-void CredentialsInserter::insertCreds (string user, string pass)
+void CredentialsHandler::insertCreds (string user, string pass)
 {
     string hashedPass = passWrapper->getHashFromString(pass);
     _tree->Insert(user, hashedPass);
 }
 
-bool CredentialsInserter::verifyCreds (string user, string pass)
+bool CredentialsHandler::verifyCreds (string user, string pass)
 {
     // ifstream fileReader;
     // string userN;

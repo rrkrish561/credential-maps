@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "CredentialsInserter.h"
+#include "CredentialsHandler.h"
 #include <chrono>
 #include "Tree.h"
 #include "SplayTree.h"
@@ -17,11 +17,11 @@ int main()
     int treeSpecifier = 0;
     BST * bstPointer = new BST();
     SplayTree * splayPointer = new SplayTree();
-    CredentialsInserter bstInserter = CredentialsInserter(bstPointer);
-    CredentialsInserter splayInserter = CredentialsInserter(splayPointer);
+    CredentialsHandler bstInserter = CredentialsHandler(bstPointer);
+    CredentialsHandler splayInserter = CredentialsHandler(splayPointer);
 
-    string insertCredTextFile = "usernameData_1000.txt";
-    string loginSimulatorFile = "variedlogins_1000_1to3.txt";
+    string insertCredTextFile = "usernameData_100k.txt";
+    string loginSimulatorFile = "variedlogins_100k_1to3.txt";
     string inputSizeExtension = "_1000";
 
     while(menuSelect!=4)

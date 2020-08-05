@@ -46,11 +46,11 @@ void BST::insertNode(string _key, string _value) {
   }
 }
 
-BST::TreeNode *BST::getNode(string _key) {
+Tree::TreeNode *BST::getNode(string _key) {
   if (size == 0) {
     return nullptr;
   } else {
-    BST::TreeNode *currnode = root;
+    TreeNode *currnode = root;
     while (currnode != nullptr) {
       string currnode_key = currnode->key;
       if (_key == currnode_key) {

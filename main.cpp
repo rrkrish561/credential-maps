@@ -20,8 +20,8 @@ int main()
     CredentialsHandler bstInserter = CredentialsHandler(bstPointer);
     CredentialsHandler splayInserter = CredentialsHandler(splayPointer);
 
-    string insertCredTextFile = "usernameData_100k.txt";
-    string loginSimulatorFile = "variedlogins_100k_1to3.txt";
+    string insertCredTextFile = "usernameData_10mil.txt";
+    string loginSimulatorFile = "variedlogins_10m_1to3.txt";
     string inputSizeExtension = "_1000";
 
     while(menuSelect!=4)
@@ -112,8 +112,8 @@ int main()
                     bstInserter.insertCreds(accounts[i].first, accounts[i].second);
                 }
                 t2 = Clock::now();
-                int time = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
-                cout << "Total time to generate BST: " << time << " microseconds." <<endl;
+                int time = chrono::duration_cast<chrono::milliseconds>(t2 - t1).count();
+                cout << "Total time to generate BST: " << time << " milliseconds." <<endl;
 
                 //insert account data into SplayTree and check total time
                 t1 = Clock::now();
@@ -122,8 +122,8 @@ int main()
                     splayInserter.insertCreds(accounts[i].first, accounts[i].second);
                 }
                 t2 = Clock::now();
-                time = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
-                cout << "Total time to generate Splay Tree: " << time << " microseconds." << endl;
+                time = chrono::duration_cast<chrono::milliseconds>(t2 - t1).count();
+                cout << "Total time to generate Splay Tree: " << time << " milliseconds." << endl;
 
                 
                 //read simulated logins from file and put it into a vector
@@ -145,20 +145,20 @@ int main()
                     bstInserter.verifyCreds(logins[i].first, logins[i].second);
                 }
                 t2 = Clock::now();
-                time = chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count();
+                time = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
                 double averageTime = time / (double) logins.size();
-                cout << "Average login time in BST is " << averageTime << " nanoseconds." << endl;
+                cout << "Average login time in BST is " << averageTime << " microseconds." << endl;
 
                 //search for simulated logins in SplayTree and check average time for one user to log in
                 t1 = Clock::now();
                 for(unsigned int i = 0; i < logins.size(); i++)
                 {
-                    //splayInserter.verifyCreds(logins[i].first, logins[i].second);
+                    splayInserter.verifyCreds(logins[i].first, logins[i].second);
                 }
                 t2 = Clock::now();
-                time = chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count();
+                time = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
                 averageTime = time / (double) logins.size();
-                cout << "Average login time in Splay Tree is " << averageTime << " nanoseconds." << endl;
+                cout << "Average login time in Splay Tree is " << averageTime << " microseconds." << endl;
 
                 break;
             }

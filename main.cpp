@@ -13,21 +13,26 @@ using namespace std::chrono;
 
 int main()
 {
+    // Variable declarations
     typedef high_resolution_clock Clock;
     int menuSelect = 0;
     int treeSpecifier;
+    // Wrapper to create md5 hashes
     hashwrapper *passWrapper = new md5wrapper();
     string hashedPass;
+    // Creation of BST/Splay Trees
     BST * bstPointer = new BST();
     SplayTree * splayPointer = new SplayTree();
     CredentialsInserter bstInserter = CredentialsInserter(bstPointer);
     CredentialsInserter splayInserter = CredentialsInserter(splayPointer);
 
+    // Files to read data from
     string insertCredTextFile = "credentials_data.zip";
     string loginSimulatorFile = "variedlogins_input_1to3.7z";
 
     while(menuSelect!=4)
     {
+        // Menu initialization
         string userName;
         string passWord;
         cout << "-----Main Menu-----\n 1. Login\n 2. Register\n 3. Test Logins" << endl;
@@ -36,20 +41,24 @@ int main()
         {
             case 1:
             {
+                // Reads in user input for username/password
                 cout << "Please enter your username: ";
                 cin >> userName;
                 cout << "\n";
                 cout << "Please enter your password: ";
                 cin >> passWord;
+                // Creates the hashed password
                 hashedPass = passWrapper->getHashFromString(passWord);
                 cout << "Please specify which tree to search in:\n 1. BST\n 2. Splay Tree" << endl;
                 cin >> treeSpecifier;
+                // Checks specified tree for the user/pass specified
                 if(treeSpecifier==1)
                 {
                     auto t1 = Clock::now();
                     if (bstInserter.verifyCreds(userName, passWord))
                     {
                         auto t2 = Clock::now();
+                        // Returns the time in nanoseconds if the acount is found
                         cout << "Account found in BST in " << duration_cast<nanoseconds>(t2 - t1).count() << " nanoseconds." << endl;
                     }
                     else
@@ -77,6 +86,7 @@ int main()
             }
             case 2:
             {
+                // Second case just takes a user/pass input and inserts into both the BST/Splay trees
                 cout << "Please enter a username: ";
                 cin >> userName;
                 cout << "\n";
@@ -92,7 +102,6 @@ int main()
             case 3:
             {
                 // Insert and time credentials into both trees
-
                 ifstream fileReader;
                 string userN;
                 string passW;
@@ -108,7 +117,7 @@ int main()
                 auto t2 = Clock::now();
                 fileReader.close();
                 int time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-                cout << "Time to generate BST: " << time << endl;
+                cout << "Time to generate BST: " << time << " nanoseconds" << endl;
 
                 fileReader.open(insertCredTextFile, ios::binary);
                 t1 = Clock::now();
@@ -121,7 +130,9 @@ int main()
                 t2 = Clock::now();
                 fileReader.close();
                 time = duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-                cout << "Time to generate Splay Tree: " << time << endl;
+                cout << "Time to generate Splay Tree: " << time << " nanoseconds" << endl;
+
+                // Reads a file of varied logins with different frequencies and puts them into a vector
 
                 fileReader.open(loginSimulatorFile, ios::binary);
                 vector<pair<string,string>> accounts;
@@ -134,6 +145,8 @@ int main()
 
                 }
                 fileReader.close();
+
+                // Goes through that vector to search through both trees and grabs the average search time in both
 
                 t1 = Clock::now();
                 for(unsigned int i = 0; i < accounts.size(); i++)
@@ -158,7 +171,7 @@ int main()
             }
         }
     }
-
+// Deletion of dynamically stored variables in memory
     delete bstPointer;
     delete splayPointer;
     delete passWrapper;

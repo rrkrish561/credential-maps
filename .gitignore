@@ -2,5 +2,10 @@
 *.s
 *.h.gch
 *.o
+*.obj
+*.pdb
+*.exe
+*.ilk
+*.txt
 .vscode
 .idea

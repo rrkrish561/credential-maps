@@ -28,9 +28,6 @@ int main()
     string insertCredTextFile = "";
     string loginSimulatorFile = "";
 
-
-
-
     while(menuSelect!=4)
     {
         cout << "-----Main Menu-----\n 1. Login\n 2. Register\n 3. Test Logins" << endl;

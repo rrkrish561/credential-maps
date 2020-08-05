@@ -7,3 +7,5 @@
 *.exe
 *.ilk
 *.txt
+.vscode
+.idea

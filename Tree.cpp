@@ -2,6 +2,8 @@
 
 Tree::~Tree() {
   deleteTree(root);
+  root = nullptr;
+  size = 0;
 }
 
 void Tree::deleteTree(Tree::TreeNode* tempRoot) {

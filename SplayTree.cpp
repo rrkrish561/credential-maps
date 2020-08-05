@@ -18,6 +18,8 @@ void SplayTree::Insert(string key, string value) {
 }
 
 void SplayTree::insertHelper(Tree::TreeNode *tempRoot, Tree::TreeNode *temp) {
+  bool alreadyExists = false;
+
   if (temp->key < tempRoot->key) {
     if (tempRoot->left == nullptr) {
       tempRoot->left = temp;
@@ -29,10 +31,11 @@ void SplayTree::insertHelper(Tree::TreeNode *tempRoot, Tree::TreeNode *temp) {
       tempRoot->right = temp;
       size++;
     } else
-      insertHelper(tempRoot->right, temp);
-  } else {
+       alreadyExists = true;
+  } 
+
+  if (alreadyExists == true)
     delete temp;
-  }
 }
 
 string SplayTree::Search(string key) { return searchHelper(root, key); }

@@ -21,7 +21,6 @@ int main() {
 
   string insertCredTextFile = "usernameData_100k.txt";
   string loginSimulatorFile = "variedlogins_100k_1to3.txt";
-  string inputSizeExtension = "_1000";
 
   while (menuSelect != 4) {
     string userName;

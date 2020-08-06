@@ -4,8 +4,9 @@ using namespace std;
 
 struct BST : public Tree {
 private:
-  TreeNode* getNode(string _key);
+  TreeNode *getNode(string _key);
   void insertNode(string _key, string _value);
+
 public:
   BST();
   void Insert(string _key, string _value);

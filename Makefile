@@ -16,14 +16,14 @@ SplayTree.o: SplayTree.cpp SplayTree.h
 CredentialsHandler.o: CredentialsHandler.cpp CredentialsHandler.h
 	g++ -c CredentialsHandler.cpp
 
-hl_md5.o: hl_md5.cpp hl_md5.h
-	g++ -c hl_md5.cpp
+hl_md5.o: lib/hl_md5.cpp lib/hl_md5.h
+	g++ -c lib/hl_md5.cpp
 
-hl_md5wrapper.o: hl_md5wrapper.cpp hl_md5wrapper.h
-	g++ -c hl_md5wrapper.cpp
+hl_md5wrapper.o: lib/hl_md5wrapper.cpp lib/hl_md5wrapper.h
+	g++ -c lib/hl_md5wrapper.cpp
 
-hl_wrapperfactory.o: hl_wrapperfactory.cpp hl_wrapperfactory.h hashlibpp.h hl_hashwrapper.h
-	g++ -c hl_wrapperfactory.cpp
+hl_wrapperfactory.o: lib/hl_wrapperfactory.cpp lib/hl_wrapperfactory.h lib/hashlibpp.h lib/hl_hashwrapper.h
+	g++ -c lib/hl_wrapperfactory.cpp
 
 clean: 
-	rm *.o credentials_mapper.exe
+	rm -r *.o credentials_mapper.exe

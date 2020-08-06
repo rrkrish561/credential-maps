@@ -6,14 +6,12 @@ Tree::~Tree() {
   size = 0;
 }
 
-void Tree::deleteTree(Tree::TreeNode* tempRoot) {
-  if(tempRoot != nullptr) {
+void Tree::deleteTree(Tree::TreeNode *tempRoot) {
+  if (tempRoot != nullptr) {
     deleteTree(tempRoot->left);
     deleteTree(tempRoot->right);
     delete tempRoot;
   }
 }
 
-int Tree::getSize() {
-  return size;
-}
+int Tree::getSize() { return size; }

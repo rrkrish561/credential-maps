@@ -21,7 +21,7 @@ void BST::insertNode(string _key, string _value) {
     while (currnode != nullptr) {
       string currnode_key = currnode->key;
       if (_key == currnode_key) { // if the keys are equal
-        prevnode = nullptr; // duplicate found, do not insert anything
+        prevnode = nullptr;       // duplicate found, do not insert anything
         currnode = nullptr;
         delete newnode;
       } else {

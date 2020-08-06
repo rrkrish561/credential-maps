@@ -20,9 +20,8 @@ int main()
     CredentialsHandler bstInserter = CredentialsHandler(bstPointer);
     CredentialsHandler splayInserter = CredentialsHandler(splayPointer);
 
-    string insertCredTextFile = "usernameData_10mil.txt";
-    string loginSimulatorFile = "variedlogins_10m_1to3.txt";
-    string inputSizeExtension = "_1000";
+    string insertCredTextFile = "usernameData_100k.txt";
+    string loginSimulatorFile = "variedlogins_100k_1to3.txt";
 
     while(menuSelect!=4)
     {
@@ -51,7 +50,7 @@ int main()
                     }
                     else
                     {
-                        cout << "Account not found!" << endl;
+                        cout << "Invalid credentials!" << endl;
                     }
                 }
                 else
